@@ -61,9 +61,15 @@ class User_Course(models.Model):
 		default='ST',
 	) 
 
+	def __str__(self):
+		return str(self.user) + " " + str(self.course) + " " + str(self.status)
+
 
 
 class Course_Credit(models.Model):	
 	credit = models.ForeignKey(Credit, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	amount = models.PositiveBigIntegerField()
+
+	def __str__(self):
+		return str(self.credit) + " " + str(self.course) + " " + str(self.amount)
