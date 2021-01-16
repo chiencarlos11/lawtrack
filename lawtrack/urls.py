@@ -16,17 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from core import views
+from core.views import UserViewSet, DistrictViewSet, CreditViewSet, CourseViewSet, Enroll
+
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'districts', views.DistrictViewSet)
-router.register(r'credits', views.CreditViewSet)
-router.register(r'courses', views.CourseViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'districts', DistrictViewSet)
+router.register(r'credits', CreditViewSet)
+router.register(r'courses', CourseViewSet)
 
 urlpatterns = [
     path('core/', include('core.urls')),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('enroll/', Enroll.as_view()),
 ]
+
