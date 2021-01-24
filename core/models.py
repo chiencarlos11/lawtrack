@@ -7,16 +7,21 @@ class User(models.Model):
 	Outlook = models.CharField(max_length=200)
 	Google_calendar = models.CharField(max_length=200)
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)
-
+	
 	def __str__(self):
 		return self.Name
 
 class District(models.Model):
 	Name = models.CharField(max_length=200)
 	TimeFrame = models.DurationField()
-
 	def __str__(self):
 		return self.Name
+
+class User_District(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	district = models.ForeignKey(District, on_delete=models.CASCADE)
+	def __str__(self):
+		return str(self.user) + " - " + str(self.district)
 
 class Credit(models.Model):
 	credit_type = models.CharField(max_length=200)
@@ -30,9 +35,7 @@ class District_Credit(models.Model):
 	amount = models.PositiveBigIntegerField()
 
 	def __str__(self):
-		return str(self.district) + " " + str(self.credit) + " " + str(self.amount)
-
-
+		return str(self.district) + " - " + str(self.credit) + " - " + str(self.amount)
 
 class Course(models.Model):
 
@@ -41,7 +44,9 @@ class Course(models.Model):
 	Price = models.PositiveBigIntegerField()
 	Date = models.DateTimeField(blank=True)
 	Provider = models.CharField(max_length=200)
-	link = models.URLField()
+	link = models.URLField(default=None,blank=True)
+	logo = models.URLField(default=None,blank=True, null=True)
+	isArchived = models.BooleanField(default=False,blank=True, null=True)
 
 	def __str__(self):
 		return self.Name
@@ -54,7 +59,6 @@ class User_Course(models.Model):
 
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
-	isAdded = models.BooleanField()
 	status = models.CharField(
 		max_length=2,
 		choices=CHOICES,
@@ -62,8 +66,14 @@ class User_Course(models.Model):
 	) 
 
 	def __str__(self):
-		return str(self.user) + " " + str(self.course) + " " + str(self.status)
+		return str(self.user) + " - " + str(self.course) + " - " + str(self.status)
 
+
+class User_Favorited(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	def __str__(self):
+		return str(self.user) + " - " + str(self.course)
 
 
 class Course_Credit(models.Model):	
@@ -72,4 +82,4 @@ class Course_Credit(models.Model):
 	amount = models.PositiveBigIntegerField()
 
 	def __str__(self):
-		return str(self.credit) + " " + str(self.course) + " " + str(self.amount)
+		return str(self.credit) + " - " + str(self.course) + " - " + str(self.amount)
