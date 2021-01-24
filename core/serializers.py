@@ -5,23 +5,23 @@ from rest_framework import serializers
 class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['Name', 'Email', 'Outlook', 'Google_calendar']
+        fields = ['id','Name', 'Email', 'Outlook', 'Google_calendar']
 
 
 class DistrictSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = District
-        fields = ['Name', 'TimeFrame']
+        fields = ['id','Name', 'TimeFrame']
 
 
 class CreditSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Credit
-        fields = ['credit_type']
+        fields = ['id','credit_type']
 
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Course
-        fields = ['Name', 'Location', 'Price', 'Date','Provider','link']
+        fields = ['id','Name', 'Location', 'Price', 'Date','Provider','link']
 
 
