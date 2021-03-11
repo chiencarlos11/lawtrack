@@ -41,6 +41,9 @@ class Pricing(models.Model):
 	Name = models.CharField(max_length=200) 
 	Price = models.FloatField()
 
+	def __str__(self):
+		return self.Name
+
 
 class Course(models.Model):
 
