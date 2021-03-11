@@ -32,16 +32,22 @@ class Credit(models.Model):
 class District_Credit(models.Model):
 	district = models.ForeignKey(District, on_delete=models.CASCADE)
 	credit = models.ForeignKey(Credit, on_delete=models.CASCADE)
-	amount = models.PositiveBigIntegerField()
+	amount = models.DecimalField(max_digits=5, decimal_places=2)
 
 	def __str__(self):
 		return str(self.district) + " - " + str(self.credit) + " - " + str(self.amount)
+
+class Pricing(models.Model):
+	Name = models.CharField(max_length=200) 
+	Price = models.FloatField()
+
 
 class Course(models.Model):
 
 	Name = models.CharField(max_length=200)
 	Location = models.CharField(max_length=200)
 	Price = models.PositiveBigIntegerField()
+	PriceModel = models.ForeignKey(Pricing, default=None,blank=True, null=True, on_delete=models.CASCADE)
 	Date = models.DateTimeField(blank=True)
 	Provider = models.CharField(max_length=200)
 	link = models.URLField(default=None,blank=True)
@@ -79,6 +85,7 @@ class User_Favorited(models.Model):
 class Course_Credit(models.Model):	
 	credit = models.ForeignKey(Credit, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	district = models.ForeignKey(District, default=None,blank=True, null=True, on_delete=models.CASCADE)
 	amount = models.PositiveBigIntegerField()
 
 	def __str__(self):
