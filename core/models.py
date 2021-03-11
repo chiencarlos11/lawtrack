@@ -46,7 +46,6 @@ class Course(models.Model):
 
 	Name = models.CharField(max_length=200)
 	Location = models.CharField(max_length=200)
-	Price = models.PositiveBigIntegerField()
 	PriceModel = models.ForeignKey(Pricing, default=None,blank=True, null=True, on_delete=models.CASCADE)
 	Date = models.DateTimeField(blank=True)
 	Provider = models.CharField(max_length=200)
