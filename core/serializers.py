@@ -31,9 +31,10 @@ class CreditSerializer(serializers.HyperlinkedModelSerializer):
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
 
     id = serializers.CharField()
+    PriceModel = serializers.RelatedField(source='Pricing', read_only=True)
 
     class Meta:
         model = Course
-        fields = ['id','Name', 'Location', 'PriceModel', 'Date','Provider','link','logo','isArchived']
+        fields = ['id','Name', 'Location', 'Date','Provider','link','logo','isArchived']
 
 

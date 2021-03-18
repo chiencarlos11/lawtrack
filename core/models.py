@@ -37,24 +37,35 @@ class District_Credit(models.Model):
 	def __str__(self):
 		return str(self.district) + " - " + str(self.credit) + " - " + str(self.amount)
 
-class Pricing(models.Model):
-	Name = models.CharField(max_length=200) 
-	Price = models.FloatField()
-
-	def __str__(self):
-		return self.Name
-
-
 class Course(models.Model):
 
 	Name = models.CharField(max_length=200)
 	Location = models.CharField(max_length=200)
-	PriceModel = models.ForeignKey(Pricing, default=None,blank=True, null=True, on_delete=models.CASCADE)
 	Date = models.DateTimeField(blank=True)
 	Provider = models.CharField(max_length=200)
 	link = models.URLField(default=None,blank=True)
 	logo = models.URLField(default=None,blank=True, null=True)
 	isArchived = models.BooleanField(default=False,blank=True, null=True)
+
+	def __str__(self):
+		return self.Name
+
+class Pricing(models.Model):
+	CURRENCY = [
+		('US', 'USD'),
+		('CA', 'CAD'),
+	]
+
+
+	Name = models.CharField(max_length=200, default=None,blank=True, null=True) 
+	Label = models.CharField(max_length=200, default=None,blank=True, null=True) 
+	Currency = models.CharField(
+		max_length=2,
+		choices=CURRENCY,
+		default='CAD', blank=True, null=True
+	)
+	Price = models.FloatField()
+	course = models.ForeignKey(Course, default=None,blank=True, null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.Name
