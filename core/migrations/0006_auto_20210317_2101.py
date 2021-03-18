@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pricing',
             name='Currency',
-            field=models.CharField(blank=True, choices=[('US', 'USD'), ('CA', 'CAD')], default='CAD', max_length=2, null=True),
+            field=models.CharField(blank=True, choices=[('US', 'USD'), ('CA', 'CAD')], default='CA', max_length=2, null=True),
         ),
         migrations.AddField(
             model_name='pricing',

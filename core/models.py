@@ -62,7 +62,7 @@ class Pricing(models.Model):
 	Currency = models.CharField(
 		max_length=2,
 		choices=CURRENCY,
-		default='CAD', blank=True, null=True
+		default='CA', blank=True, null=True
 	)
 	Price = models.FloatField()
 	course = models.ForeignKey(Course, default=None,blank=True, null=True, on_delete=models.CASCADE)

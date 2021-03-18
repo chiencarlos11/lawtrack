@@ -91,6 +91,8 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -140,7 +142,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
 
 django_heroku.settings(locals()) 
