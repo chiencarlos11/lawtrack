@@ -1,5 +1,4 @@
 import csv
-import requests
 import json
 import datetime
 from core.models import *
