@@ -126,6 +126,20 @@ class CourseViewSet(APIView):
                 price_data.append(p)
             course_data['Pricing'] = price_data
 
+            #Course_Credit
+
+            course_credits = Course_Credit.objects.filter(course=course)
+
+            cc_data = []
+            for cc in course_credits:
+                c = {
+                    "Credit": cc.credit.credit_type,
+                    "district": cc.district.Name,
+                    "district duration": cc.district.TimeFrame,
+                    "amount": cc.amount
+                }
+                cc_data.append(c)
+            course_data['Course Credit'] = price_data
             response_data.append(course_data)
 
         return Response(json.dumps(response_data))
