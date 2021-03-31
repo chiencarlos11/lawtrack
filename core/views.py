@@ -98,6 +98,39 @@ class Home(APIView):
         return Response(json.dumps(response_data))
 
 
+class CourseViewSet(APIView):
+    def get(self, request):
+        response_data = []
+        courses = []
+        prices = []
+
+        #return all courses
+        courses = Course.objects.all()
+
+        for course in courses:
+            prices = Pricing.objects.filter(course=course)
+
+            course_data = {"Name": course.Name,
+                                "Location": course.Location,
+                                "Date": course.Date.isoformat(),
+                                "Provider": course.Provider,
+                                "link": course.link,
+                                "logo": course.logo,
+                                "isArchived": course.isArchived}
+            price_data = []
+            for price in prices:
+                p = {"Name":price.Name,
+                        "Label":price.Label,
+                        "Currency":price.Currency,
+                        "Price":price.Price}
+                price_data.append(p)
+            course_data['Pricing'] = price_data
+
+            response_data.append(course_data)
+
+        return Response(json.dumps(response_data))
+
+
 
 class Enroll(APIView):
 	parser_classes = [JSONParser]
@@ -179,10 +212,4 @@ class CreditViewSet(viewsets.ModelViewSet):
     serializer_class = CreditSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class CourseViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Course.objects.all().order_by('-Name')
-    serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+

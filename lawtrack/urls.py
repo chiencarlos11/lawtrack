@@ -23,7 +23,6 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'districts', DistrictViewSet)
 router.register(r'credits', CreditViewSet)
-router.register(r'courses', CourseViewSet)
 
 urlpatterns = [
     path('core/', include('core.urls')),
@@ -32,5 +31,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('enroll/', Enroll.as_view()),
     path('home/<int:pk>/', Home.as_view()),
+    path('courses/', CourseViewSet.as_view()),
 ]
 
