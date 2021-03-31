@@ -11,6 +11,7 @@ import json
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from django.core import serializers
+from rest_framework import pagination
 
 # Create your views here.
 def index(request):
@@ -98,7 +99,7 @@ class Home(APIView):
         return Response(json.dumps(response_data))
 
 
-class CourseViewSet(APIView):
+class CourseViewSet(APIView, pagination.LimitOffsetPagination):
     def get(self, request):
         response_data = []
         courses = []
@@ -142,7 +143,9 @@ class CourseViewSet(APIView):
             course_data['Course Credit'] = price_data
             response_data.append(course_data)
 
-        return Response(json.dumps(response_data))
+        results = self.paginate_queryset(response_data, request, view=self)
+        serialized = json.dumps(results)
+        return self.get_paginated_response(serialized)
 
 
 
