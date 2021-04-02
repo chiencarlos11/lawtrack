@@ -23,7 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'districts', DistrictViewSet)
 router.register(r'credits', CreditViewSet)
-router.register(r'courses', CourseViewSet, basename='courses')
+router.register(r'courses', CourseViewSet)
 router.register(r'pricing', PricingViewSet)
 router.register(r'course_credit', CourseCreditViewSet)
 

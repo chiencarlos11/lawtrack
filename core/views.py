@@ -232,24 +232,27 @@ class CreditViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class CourseViewSet(viewsets.ViewSet):
+class CourseViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
 
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = PageNumberPagination
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    def list(self, request):
-        queryset = Course.objects.all()
-        serializer = CourseSerializer(queryset, many=True)
-        return Response(serializer.data)
+    # def list(self, request):
+    #     queryset = Course.objects.all()
+    #     serializer = CourseSerializer(queryset, many=True)
+    #     return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        queryset = Course.objects.all()
-        course = get_object_or_404(queryset, pk=pk)
-        serializer = CourseSerializer(course)
-        return Response(serializer.data)
+    # def retrieve(self, request, pk=None):
+    #     queryset = Course.objects.all()
+    #     course = get_object_or_404(queryset, pk=pk)
+    #     serializer = CourseSerializer(course)
+    #     return Response(serializer.data)
     
 
 class PricingViewSet(viewsets.ModelViewSet):

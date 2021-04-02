@@ -65,7 +65,7 @@ class Pricing(models.Model):
 		default='CA', blank=True, null=True
 	)
 	Price = models.FloatField()
-	course = models.ForeignKey(Course, default=None,blank=True, null=True, on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, default=None,blank=True, null=True, on_delete=models.CASCADE, related_name='pricing')
 
 	def __str__(self):
 		return self.Name
@@ -97,7 +97,7 @@ class User_Favorited(models.Model):
 
 class Course_Credit(models.Model):	
 	credit = models.ForeignKey(Credit, on_delete=models.CASCADE)
-	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='courseCredit')
 	district = models.ForeignKey(District, default=None,blank=True, null=True, on_delete=models.CASCADE)
 	amount = models.PositiveBigIntegerField()
 

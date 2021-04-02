@@ -29,8 +29,30 @@ class CreditSerializer(serializers.Serializer):
         model = Credit
         fields = ['id','credit_type']
 
+class PricingSerializer(serializers.Serializer):
+
+    Name = serializers.CharField()
+    Label = serializers.CharField()
+    Currency = serializers.CharField()
+    Price = serializers.FloatField()
+
+    class Meta:
+        model = Pricing
+        fields = ('Name','Label','Currency','Price')
+
+class CourseCreditSerializer(serializers.Serializer):
+
+    credit = CreditSerializer()
+    district = DistrictSerializer()
+    amount = serializers.FloatField()
+
+    class Meta:
+        model = Course_Credit
+        fields = ('credit','district','amount')
+
 class CourseSerializer(serializers.Serializer):
 
+    id = serializers.IntegerField()
     Name = serializers.CharField()
     Location = serializers.CharField()
     Date = serializers.DateTimeField()
@@ -38,23 +60,9 @@ class CourseSerializer(serializers.Serializer):
     link = serializers.URLField()
     logo = serializers.URLField()
     isArchived = serializers.BooleanField()
+    pricing = PricingSerializer(many=True, read_only=True)
+    courseCredit = CourseCreditSerializer(many=True, read_only=True)
 
-class PricingSerializer(serializers.Serializer):
-
-    Name = serializers.CharField()
-    Label = serializers.CharField()
-    Currency = serializers.CharField()
-    Price = serializers.FloatField()
-    Currency = serializers.CharField()
-    course = CourseSerializer()
-
-
-class CourseCreditSerializer(serializers.Serializer):
-
-    credit = CreditSerializer()
-    course = CourseSerializer()
-    district = DistrictSerializer()
-    amount = serializers.FloatField()
     
 
 
